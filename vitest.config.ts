@@ -11,6 +11,8 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["src/lib/**/*.ts"],
+      // Server-only filesystem glue; exercised end to end by the Writing pages in e2e/.
+      exclude: ["src/lib/load-posts.ts"],
       thresholds: { lines: 90, functions: 90, branches: 90, statements: 90 },
     },
   },
