@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -6,6 +7,7 @@ const nextConfig: NextConfig = {
   // `/about` is emitted as `/about/index.html` so any static host can serve it.
   trailingSlash: true,
   images: { unoptimized: true },
+  pageExtensions: ["ts", "tsx", "mdx"],
   turbopack: {
     rules: {
       "*.css": {
@@ -16,4 +18,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);
