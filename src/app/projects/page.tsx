@@ -5,13 +5,14 @@ import { projects } from "@/content/projects";
 import type { ReactNode } from "react";
 import type { Project, Todo } from "@/content/types";
 import { isUsableLink } from "@/lib/todo";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Projects",
   description:
     "SDET projects in progress: a Playwright UI framework, an API test suite, a GitHub Actions pipeline, k6 performance testing and an LLM evaluation harness.",
-  alternates: { canonical: "/projects/" },
-};
+  path: "/projects/",
+});
 
 const statusLabel: Record<Project["status"], string> = {
   "in-progress": "In progress",

@@ -3,12 +3,13 @@ import Link from "next/link";
 import { PageHeader } from "@/components/ui";
 import { getPosts } from "@/lib/load-posts";
 import { formatPostDate } from "@/lib/posts";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Writing",
   description: "Short posts on test automation, AI in quality engineering and integrating systems.",
-  alternates: { canonical: "/writing/" },
-};
+  path: "/writing/",
+});
 
 export default async function WritingPage() {
   const posts = await getPosts();

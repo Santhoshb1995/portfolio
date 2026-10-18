@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { PageHeader, TagList } from "@/components/ui";
 import { experience } from "@/content/experience";
 import { formatDuration, formatRange, monthsBetween } from "@/lib/dates";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Experience",
   description:
     "8+ years of SDET and QA automation experience across enterprise SaaS — outcomes, metrics and stack for each role.",
-  alternates: { canonical: "/experience/" },
-};
+  path: "/experience/",
+});
 
 export default function ExperiencePage() {
   return (

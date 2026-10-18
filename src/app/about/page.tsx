@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { PageHeader, SectionHeading } from "@/components/ui";
 import { profile } from "@/content/profile";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description: `About ${profile.name}: ${profile.role} focused on reliable, AI-assisted test automation.`,
-  alternates: { canonical: "/about/" },
-};
+  path: "/about/",
+});
 
 export default function AboutPage() {
   const [lead, ...rest] = profile.about;

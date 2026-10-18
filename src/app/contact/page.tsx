@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { ContactLinks } from "@/components/contact-links";
 import { PageHeader } from "@/components/ui";
 import { profile } from "@/content/profile";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description: `Get in touch with ${profile.name} by email or LinkedIn.`,
-  alternates: { canonical: "/contact/" },
-};
+  path: "/contact/",
+});
 
 export default function ContactPage() {
   return (

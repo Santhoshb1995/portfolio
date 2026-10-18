@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ContactLinks } from "@/components/contact-links";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { PersonJsonLd } from "@/components/person-json-ld";
 import { SectionHeading } from "@/components/ui";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
@@ -12,6 +13,7 @@ export default function HomePage() {
 
   return (
     <div className="container-page">
+      <PersonJsonLd />
       <section aria-labelledby="intro" className="pt-20 pb-16 sm:pt-32 sm:pb-24">
         <p className="animate-rise font-mono text-xs tracking-widest text-accent uppercase">
           {profile.role} · {profile.location}

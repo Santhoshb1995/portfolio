@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getPosts, loadPost } from "@/lib/load-posts";
+import { pageMetadata } from "@/lib/metadata";
 import { formatPostDate } from "@/lib/posts";
 
 // Static export: only posts known at build time exist; anything else is a 404.
@@ -15,12 +16,13 @@ export async function generateMetadata({
 }: PageProps<"/writing/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const { meta } = await loadPost(slug);
-  return {
+  return pageMetadata({
     title: meta.title,
     description: meta.summary,
-    alternates: { canonical: `/writing/${slug}/` },
-    openGraph: { type: "article", publishedTime: meta.date },
-  };
+    path: `/writing/${slug}/`,
+    type: "article",
+    publishedTime: meta.date,
+  });
 }
 
 export default async function PostPage({ params }: PageProps<"/writing/[slug]">) {

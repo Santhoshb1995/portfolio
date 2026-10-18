@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { PageHeader, TagList } from "@/components/ui";
 import { skills } from "@/content/skills";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Skills",
   description:
     "Test automation, AI-assisted testing, languages, CI/CD, cloud and tooling skills — Playwright, Cypress, Selenium, TypeScript, GitHub Actions, AWS and more.",
-  alternates: { canonical: "/skills/" },
-};
+  path: "/skills/",
+});
 
 export default function SkillsPage() {
   return (

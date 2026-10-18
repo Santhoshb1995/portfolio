@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { site } from "@/content/site";
+import { OG_IMAGE } from "@/lib/metadata";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -14,8 +15,40 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: { default: site.title, template: `%s — ${site.name}` },
   description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  keywords: [
+    "SDET",
+    "test automation",
+    "Playwright",
+    "Cypress",
+    "API testing",
+    "CI/CD",
+    "AI-assisted testing",
+    "Forward Deployed Engineer",
+    "quality engineering",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: site.name,
+    title: site.title,
+    description: site.description,
+    locale: "en_CA",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+    images: [OG_IMAGE.url],
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
