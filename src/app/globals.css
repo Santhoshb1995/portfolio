@@ -1,1 +1,103 @@
 @import "tailwindcss";
+
+/* Dark mode follows the data-theme attribute set by the inline theme script. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Design tokens. One accent colour (teal); every text/background pair below
+ * meets WCAG AA contrast (4.5:1+) in both themes.
+ */
+:root {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --fg: #1c1917;
+  --muted: #57534e;
+  --border: #e7e5e4;
+  --accent: #0f766e;
+  --accent-hover: #115e59;
+  --accent-fg: #ffffff;
+  --accent-soft: #f0fdfa;
+}
+
+[data-theme="dark"] {
+  --bg: #0c0a09;
+  --surface: #171412;
+  --fg: #f5f5f4;
+  --muted: #a8a29e;
+  --border: #292524;
+  --accent: #2dd4bf;
+  --accent-hover: #5eead4;
+  --accent-fg: #042f2e;
+  --accent-soft: #0f2a27;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-4xl px-5 sm:px-8;
+  }
+
+  /* Subtle entrance: fade and rise a few pixels. Disabled for reduced motion. */
+  .animate-rise {
+    animation: rise 500ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
