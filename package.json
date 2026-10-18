@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@14 out -l 3000",
+    "start": "serve out -l 3000",
     "lint": "eslint --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
@@ -14,7 +14,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "todos": "tsx scripts/todos.ts"
+    "todos": "tsx scripts/todos.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:all": "npm run test && npm run build && npm run test:e2e"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -39,6 +42,7 @@
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "serve": "^14.2.6",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5",

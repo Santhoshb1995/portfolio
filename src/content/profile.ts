@@ -23,7 +23,7 @@ export const profile: Profile = {
   links: {
     github: "https://github.com/Santhoshb1995",
     linkedin: "https://www.linkedin.com/in/santhosh-burugupally-4a79bb1a3/",
-    resume: "/SB_Resume.pdf",
+    resume: "/Santhosh-Burugupally-Resume.pdf",
   },
   education: [
     {

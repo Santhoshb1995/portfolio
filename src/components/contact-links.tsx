@@ -10,7 +10,7 @@ export function ContactLinks() {
         <ButtonLink
           variant="primary"
           href={profile.links.resume}
-          download="Santhosh-Burugupally-Resume.pdf"
+          download
           data-testid="resume-link"
         >
           <DownloadIcon className="size-4" />
