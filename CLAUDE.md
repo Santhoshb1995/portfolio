@@ -40,7 +40,7 @@ Before committing: `npm run check && npm test && npm run build && npm run test:e
 - Dark mode is `data-theme` on `<html>`, set before paint by `themeInitScript` (`src/lib/theme.ts`); use the `dark:` variant.
 - Accessibility: semantic landmarks, one `h1` per page, decorative SVGs `aria-hidden`, external links get `target="_blank" rel="noopener noreferrer"` plus sr-only "(opens in a new tab)". axe must pass in both themes.
 - Internal hrefs use trailing slashes (`/about/`) to match `trailingSlash: true`.
-- Commits: conventional style (`feat(scope): …`, `test(e2e): …`), one per logical step.
+- Commits: plain, human-sounding messages describing what changed (no `feat:`-style prefixes), one per logical step. No `Co-Authored-By: Claude` or other AI attribution lines.
 
 ## Next.js 16 gotchas found in this repo
 
