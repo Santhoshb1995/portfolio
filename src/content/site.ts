@@ -4,6 +4,7 @@
  */
 export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://santhosh-burugupally.vercel.app",
+  name: "Santhosh Burugupally",
   title: "Santhosh Burugupally — Senior SDET",
   description:
     "Senior SDET building reliable, AI-assisted test automation with Playwright, API testing and CI/CD — heading toward Forward Deployed Engineering.",

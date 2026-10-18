@@ -12,12 +12,7 @@ export const skills: SkillGroup[] = [
     id: "ai-in-testing",
     title: "AI in testing",
     description: "Using GenAI to speed up how tests and test data get written.",
-    skills: [
-      "AI-assisted test generation",
-      "AI-generated test data",
-      "OpenAI Codex",
-      "GenAI tooling",
-    ],
+    skills: ["AI-assisted test generation", "AI-generated test data", "Codex", "GenAI tooling"],
   },
   {
     id: "languages",

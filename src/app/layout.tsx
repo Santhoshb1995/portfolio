@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: site.title,
+  title: { default: site.title, template: `%s — ${site.name}` },
   description: site.description,
 };
 
