@@ -30,7 +30,10 @@ Before committing: `npm run check && npm test && npm run build && npm run test:e
 - `src/lib/`: pure, unit-tested helpers. Tests sit next to the code as `*.test.ts`. `load-posts.ts` is the only server-only/fs module.
 - `src/components/`: UI. Client components only where needed (`main-nav`, `theme-toggle`).
 - `src/app/`: routes. Each page builds its metadata with `pageMetadata()` from `src/lib/metadata.ts`.
-- `e2e/`: Playwright specs. `fixtures.ts` holds `ROUTES` (update it when adding a page) and an auto fixture that fails on console errors.
+- `e2e/`: Playwright tests in Page Object Model, organised by domain.
+  - `e2e/shared/support/`: the base `test` (auto fixture that fails on console errors, `sitePage`), `routes.ts` (`ROUTES`, update it when adding a page), the `SitePage` base page object and layout components (header, nav, theme toggle).
+  - `e2e/domains/<domain>/`: `<domain>.spec.ts` plus `support/` holding that domain's page objects/components (`*.page.ts`, `*.component.ts`), API clients (`*.api.ts`), test data (`*.data.ts`) and `fixtures.ts`, which extends the shared test and re-exports everything the spec needs.
+  - Specs import only from `./support/fixtures`; no locators or raw selectors in specs. Domains never import from each other, only from `@e2e/shared` (alias in tsconfig).
 
 ## Conventions
 

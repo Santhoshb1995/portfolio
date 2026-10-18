@@ -15,6 +15,11 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+  {
+    // Playwright fixtures call `use()`, which the React hooks rule mistakes for React's `use`.
+    files: ["e2e/**/*.ts"],
+    rules: { "react-hooks/rules-of-hooks": "off" },
+  },
   // Must stay last: turns off rules that conflict with Prettier.
   prettier,
   globalIgnores([

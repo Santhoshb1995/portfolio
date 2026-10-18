@@ -78,15 +78,35 @@ The filename becomes the URL (`/writing/my-post-slug/`), and the post is added t
 ## Testing
 
 - **Unit (Vitest):** date ranges and durations, theme resolution (including the inline no-flash script), TODO detection, post validation and sorting, metadata. `src/content/content.test.ts` checks the content itself: valid dates, newest-first order, https links or explicit TODOs, unique ids, and that no phone number appears on the site.
-- **E2E (Playwright, desktop + mobile Chromium)**, run against the real static build:
-  - `pages.spec.ts`: every route returns 200 with one `h1`, landmarks, title and description; content renders from the data files; custom 404
-  - `navigation.spec.ts`: nav links and `aria-current`, mobile menu (Escape closes it), skip link, keyboard-only use
-  - `theme.spec.ts`: follows the OS setting, toggles, persists, and applies before any JS runs (no flash)
-  - `resume.spec.ts`: the link serves a real PDF and downloads it
-  - `links.spec.ts`: crawls every page; internal links and anchors must resolve, mailto links must be well-formed, external links must be https with `target="_blank" rel="noopener"`. Set `CHECK_EXTERNAL_LINKS=1` to also request external URLs (off in CI because LinkedIn blocks bots).
-  - `a11y.spec.ts`: axe (WCAG 2.2 AA + best practices) on every page in light and dark themes, plus the open mobile menu
-  - `seo.spec.ts`: canonical, Open Graph and Twitter tags on every page, OG image, sitemap, robots, JSON-LD
-- A shared fixture fails any E2E test that logs a browser console error.
+- **E2E (Playwright, desktop + mobile Chromium)**, run against the real static build. Tests use the Page Object Model and are grouped by domain. Each domain keeps its page objects, fixtures and test data in its own `support/` folder, and specs contain no raw selectors.
+
+  ```
+  e2e/
+    shared/support/        base test, ROUTES, SitePage, header / nav / theme-toggle components
+    domains/<domain>/
+      <domain>.spec.ts     the tests
+      support/
+        fixtures.ts        extends the shared test with this domain's page objects
+        *.page.ts          page objects (extend SitePage)
+        *.component.ts     reusable parts of a page
+        *.api.ts           HTTP clients for non-page resources (PDF, sitemap, robots)
+        *.data.ts          expected values and test data
+  ```
+
+  Domains only import from `e2e/shared` (via the `@e2e/*` alias), never from each other.
+
+  | Domain                                                           | What it checks                                                                                                                                                                                                                                      |
+  | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `routing`                                                        | every route returns 200 with one `h1`, landmarks, title and description; custom 404                                                                                                                                                                 |
+  | `navigation`                                                     | nav links and `aria-current`, mobile menu (Escape closes it), skip link, keyboard-only use                                                                                                                                                          |
+  | `theme`                                                          | follows the OS setting, toggles, persists, and applies before any JS runs (no flash)                                                                                                                                                                |
+  | `home`, `experience`, `skills`, `projects`, `writing`, `contact` | each page renders what its content file says                                                                                                                                                                                                        |
+  | `resume`                                                         | the link serves a real PDF and downloads it                                                                                                                                                                                                         |
+  | `links`                                                          | crawls every page; internal links and anchors resolve, mailto links are well-formed, external links are https with `target="_blank" rel="noopener"`. `CHECK_EXTERNAL_LINKS=1` also requests external URLs (off in CI because LinkedIn blocks bots). |
+  | `seo`                                                            | canonical, Open Graph and Twitter tags on every page, OG image, sitemap, robots, JSON-LD                                                                                                                                                            |
+  | `accessibility`                                                  | axe (WCAG 2.2 AA + best practices) on every page in light and dark themes, plus the open mobile menu                                                                                                                                                |
+
+- The shared base test fails any E2E test that logs a browser console error.
 
 CI (`.github/workflows/ci.yml`) runs two jobs on every push and pull request: **checks** (lint, type-check, format, unit tests with coverage) and **e2e** (build, then Playwright). The HTML report is uploaded as an artifact.
 
@@ -108,6 +128,6 @@ src/
   content/        All editable content + types + content-integrity tests
   lib/            Pure helpers (dates, theme, todo, posts, metadata) + unit tests
   mdx-components.tsx
-e2e/              Playwright specs and shared fixtures
+e2e/              Playwright tests: shared/support plus one folder per domain
 scripts/todos.ts  Lists remaining content TODOs
 ```
